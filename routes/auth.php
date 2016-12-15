@@ -12,3 +12,8 @@ Route::post('posts/create', [
     'uses' => 'CreatePostController@store',
     'as' => 'posts.store',
 ]);
+// Comments
+Route::post('posts/{post}/comment', [
+    'uses' => 'CommentController@store',
+    'as' => 'comments.store',
+]);
