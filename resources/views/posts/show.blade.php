@@ -15,4 +15,17 @@
         Publicar comentario
     </button>
     {!! Form::close() !!}
+
+    @foreach($post->latestComments as $comment)
+        <article class="{{ $comment->answer ? 'answer' : '' }}">
+            {{ $comment->comment }}
+
+            @if(Gate::allows('accept', $comment) && !$comment->answer)
+                {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}
+                <button type="submit">Aceptar respuesta</button>
+                {!! Form::close() !!}
+            @endif
+        </article>
+    @endforeach
+
 @endsection
