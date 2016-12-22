@@ -2,15 +2,17 @@
 
 namespace App;
 
-use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
     protected $fillable = ['title', 'content'];
 
-    protected $casts = ['pending'=>'boolean'];
+    protected $casts = [
+        'pending' => 'boolean'
+    ];
 
     public function user()
     {
@@ -33,10 +35,12 @@ class Post extends Model
 
         $this->attributes['slug'] = Str::slug($value);
     }
+
     public function getUrlAttribute()
     {
         return route('posts.show', [$this->id, $this->slug]);
     }
+
     public function getSafeHtmlContentAttribute()
     {
         return Markdown::convertToHtml(e($this->content));

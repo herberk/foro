@@ -1,5 +1,7 @@
 <?php
 
+use App\Post;
+
 class CreatePostsTest extends FeatureTestCase
 {
     public function test_a_user_create_a_post()
@@ -24,9 +26,17 @@ class CreatePostsTest extends FeatureTestCase
             'user_id' => $user->id,
         ]);
 
-        // Test a user is redirected to the posts details after creating it.
-        $this->see($title);
+        $post = Post::first();
+
+        // Test the author is suscribed automatically to the post.
+        $this->seeInDatabase('subscriptions', [
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+        ]);
+        $this->seePageIs($post->url);
     }
+
+
 
     public function test_creating_a_post_requires_authentication()
     {
@@ -44,7 +54,7 @@ class CreatePostsTest extends FeatureTestCase
             ->press('Publicar')
             ->seePageIs(route('posts.create'))
             ->seeErrors([
-                'title' => 'El campo título es obligatorio',
+                'title' => 'El campo tÃ­tulo es obligatorio',
                 'content' => 'El campo contenido es obligatorio'
             ]);
     }
