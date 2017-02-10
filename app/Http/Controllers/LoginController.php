@@ -2,30 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Token;
-use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
-    public function create()
+    public function login($token)
     {
-        return view('login.create');
+        $token = Token::findActive($token);
+
+
+        if ($token == null) {
+            alert('Este enlace ya expiró, por favor solicita otro', 'danger');
+
+            return redirect()->route('token');
+        }
+
+
+        $token->login();
+
+        return redirect('/');
     }
-
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email|exists:users'
-        ]);
-
-        $user = User::where('email', $request->get('email'))->first();
-
-        Token::generateFor($user)->sendByEmail();
-
-        alert('Enviamos a tu email un enlace para que inicies sesión');
-
-        return back();
-    }
-
 }
