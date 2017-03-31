@@ -7,7 +7,7 @@ class SupportMarkdownTest extends FeatureTestCase
         $importantText = 'Un texto muy importante';
 
         $post = $this->createPost([
-            'content' => "La primera parte del texto. **$importantText**. La ùltima parte del texto"
+            'content' => "La primera parte del texto. **$importantText**. La última parte del texto"
         ]);
 
         $this->visit($post->url)

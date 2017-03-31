@@ -25,6 +25,7 @@ class AuthenticationTest extends FeatureTestCase
 
         $this->seePageIs('/');
     }
+
     function test_a_user_cannot_login_with_an_invalid_token()
     {
         // Having
@@ -45,6 +46,7 @@ class AuthenticationTest extends FeatureTestCase
             'id' => $token->id
         ]);
     }
+
     function test_a_user_cannot_use_the_same_token_twice()
     {
         // Having
@@ -95,6 +97,4 @@ class AuthenticationTest extends FeatureTestCase
             ->seeRouteIs('token')
             ->see('Este enlace ya expiró, por favor solicita otro');
     }
-
-
 }

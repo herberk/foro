@@ -24,8 +24,9 @@ class NotifyUsersTest extends FeatureTestCase
 
         Notification::assertSentTo(
             $subscriber, PostCommented::class, function ($notification) use ($comment) {
-            return $notification->comment->id == $comment->id;
-        });
+                return $notification->comment->id == $comment->id;
+            }
+        );
 
         // The author of the comment shouldn't be notified even if he or she is a subscriber.
         Notification::assertNotSentTo($writer, PostCommented::class);

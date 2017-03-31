@@ -8,7 +8,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class PostCommentedTest extends TestCase
 {
-
     /**
      * @test
      */
@@ -20,7 +19,7 @@ class PostCommentedTest extends TestCase
 
         $author = new User([
             'first_name' => 'Duilio',
-             'last_name' => 'Palacios',
+            'last_name' => 'Palacios',
         ]);
 
         $comment = new Comment;

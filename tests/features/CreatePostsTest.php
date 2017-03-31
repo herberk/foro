@@ -24,6 +24,7 @@ class CreatePostsTest extends FeatureTestCase
             'content' => $content,
             'pending' => true,
             'user_id' => $user->id,
+            'slug' => 'esta-es-una-pregunta',
         ]);
 
         $post = Post::first();
@@ -33,18 +34,15 @@ class CreatePostsTest extends FeatureTestCase
             'user_id' => $user->id,
             'post_id' => $post->id,
         ]);
+
+        // Test a user is redirected to the posts details after creating it.
         $this->seePageIs($post->url);
     }
 
-
-
-    public function test_creating_a_post_requires_authentication()
+    function test_creating_a_post_requires_authentication()
     {
-
-        // When
         $this->visit(route('posts.create'))
-             ->seePageIs(route('token'));
-
+            ->seePageIs(route('token'));
     }
 
     function test_create_post_form_validation()
@@ -58,5 +56,4 @@ class CreatePostsTest extends FeatureTestCase
                 'content' => 'El campo contenido es obligatorio'
             ]);
     }
-
 }

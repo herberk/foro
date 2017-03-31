@@ -3,7 +3,7 @@
 use App\User;
 use App\Token;
 use Illuminate\Support\Facades\Mail;
-use \Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\DomCrawler\Crawler;
 
 class TokenMailTest extends FeatureTestCase
 {
@@ -26,7 +26,7 @@ class TokenMailTest extends FeatureTestCase
         $this->open(new \App\Mail\TokenMail($token))
             ->seeLink($token->url, $token->url);
     }
-
+    
     protected function open(\Illuminate\Mail\Mailable $mailable)
     {
         $transport = Mail::getSwiftMailer()->getTransport();
